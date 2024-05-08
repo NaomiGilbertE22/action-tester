@@ -1,0 +1,38 @@
+# This is a basic workflow to run SSL Labs Scan from GitHub Actions
+
+name: Generate SSL Report
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Go environment
+        uses: actions/setup-go@v5.0.1
+          
+      - name: Clone SSL Labs Scan
+        run: git clone https://github.com/ssllabs/ssllabs-scan $RUNNER_TEMP/ssllabs-scan
+
+      - name: Build SSL Labs Scan 
+        run: cd $RUNNER_TEMP/ssllabs-scan && go build ssllabs-scan-v4.go && chmod +x ssllabs-scan-v4
+
+      - name: Prepare FQDNs File
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: $RUNNER_TEMP/fqdns.txt
+          contents: |
+            e22-dev.pellustro.com
+            dev-api.pellustro.com
+            e22-sb.pellustro.com
+            sb-api.pellustro.com
+            e22-prod.pellustro.com
+            prod-api.pellustro.com
+            e22-bnym.pellustro.com
+            # e22-eu-prod.pellustro.com - Temporarily Down
+            # eu-api.pellustro.com - Temporarily Down
+          write-mode: overwrite
+
+      - name: Run Scan
+        run: $RUNNER_TEMP/ssllabs-scan-v4 --email naomi.gilbert@element-22.com --hostfile $RUNNER_TEMP/fqdns.txt --quiet --grade
