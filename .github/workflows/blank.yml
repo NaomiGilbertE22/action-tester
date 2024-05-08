@@ -21,7 +21,7 @@ jobs:
       - name: Prepare FQDNs File
         uses: DamianReeves/write-file-action@master
         with:
-          path: $RUNNER_TEMP/fqdns.txt
+          path: fqdns.txt
           contents: |
             e22-dev.pellustro.com
             dev-api.pellustro.com
@@ -35,4 +35,4 @@ jobs:
           write-mode: overwrite
 
       - name: Run Scan
-        run: $RUNNER_TEMP/ssllabs-scan/ssllabs-scan-v4 --email naomi.gilbert@element-22.com --hostfile $RUNNER_TEMP/fqdns.txt --quiet --grade
+        run: $RUNNER_TEMP/ssllabs-scan/ssllabs-scan-v4 --email naomi.gilbert@element-22.com --hostfile fqdns.txt --quiet --grade
