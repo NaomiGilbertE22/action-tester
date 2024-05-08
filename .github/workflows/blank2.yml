@@ -14,7 +14,7 @@ jobs:
         run: |
           curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
           chmod +x $RUNNER_TEMP/sbom-tool
-          $RUNNER_TEMP/sbom-tool generate -b ./buildOutput -bc ./ -pn Pellustro -pv ${{ github.event.release.name }} -ps "Element-22" -nsb https://sbom.pellustro.com              
+          $RUNNER_TEMP/sbom-tool generate -b ./buildOutput -bc ./ -pn Pellustro -pv 4.0.0 -ps Element-22 -nsb https://sbom.pellustro.com              
       
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
