@@ -35,4 +35,4 @@ jobs:
           write-mode: overwrite
 
       - name: Run Scan
-        run: $RUNNER_TEMP/ssllabs-scan-v4 --email naomi.gilbert@element-22.com --hostfile $RUNNER_TEMP/fqdns.txt --quiet --grade
+        run: $RUNNER_TEMP/ssllabs-scan/ssllabs-scan-v4 --email naomi.gilbert@element-22.com --hostfile $RUNNER_TEMP/fqdns.txt --quiet --grade
